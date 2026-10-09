@@ -1,6 +1,6 @@
 import { usePosts } from "./hooks/usePosts.ts";
 import type { Post } from "./types.ts";
-import { PostList } from "./components/PostList.tsx";
+import { PostsBrowser } from "./components/PostsBrowser.tsx";
 
 function App() {
     const {posts, loading, error} = usePosts();
@@ -9,13 +9,14 @@ function App() {
         console.log("View clicked: ", post);
     }
 
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>Error: {error}</p>
-
     return (
         <>
-            <h1>Posts List</h1>
-            <PostList posts={posts} onView={handleViewPost}/>
+            <PostsBrowser
+                posts={posts}
+                loading={loading}
+                error={error}
+                onView={handleViewPost}
+            />
         </>
     )
 }
