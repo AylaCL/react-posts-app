@@ -1,12 +1,20 @@
 import { usePosts } from "./hooks/usePosts.ts";
 import type { Post } from "./types.ts";
 import { PostsBrowser } from "./components/PostsBrowser.tsx";
+import { useState } from "react";
+import { PostDetail } from "./components/PostDetail.tsx";
 
 function App() {
     const {posts, loading, error} = usePosts();
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-    function handleViewPost(post: Post) {
-        console.log("View clicked: ", post);
+    if (selectedPost) {
+        return (
+            <PostDetail
+                post={selectedPost}
+                onClose={() => setSelectedPost(null)}
+            />
+        )
     }
 
     return (
@@ -15,7 +23,7 @@ function App() {
                 posts={posts}
                 loading={loading}
                 error={error}
-                onView={handleViewPost}
+                onView={setSelectedPost}
             />
         </>
     )

@@ -17,13 +17,12 @@ export function PostsBrowser({posts, loading, error, onView}: PostsBrowserProps)
         post.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>Error: {error}</p>
-
     return (
         <>
             <SearchBar searchTerm={searchTerm} onChange={setSearchTerm}/>
-            <PostList posts={filteredPosts} onView={onView}/>
+            {loading && <p>Loading</p>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && <PostList posts={filteredPosts} onView={onView}/>}
         </>
     )
 }
